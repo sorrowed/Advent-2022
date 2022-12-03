@@ -126,13 +126,15 @@ class Puzzle : IPuzzle
     public void Part1()
     {
         var score = File.ReadAllLines("Day2/Input.txt").AsEnumerable().Select(x => PlayRound1(x)).Sum();
-
+        
+        Debug.Assert(score == 15422);
         Console.WriteLine($"{Name}:1 --> {score}");
     }
     public void Part2()
     {
         var score = File.ReadAllLines("Day2/Input.txt").AsEnumerable().Select(x => PlayRound2(x)).Sum();
-
+        
+        Debug.Assert(score == 15442);
         Console.WriteLine($"{Name}:2 --> {score}");
     }
 }

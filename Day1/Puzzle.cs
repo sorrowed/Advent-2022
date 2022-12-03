@@ -1,5 +1,6 @@
 namespace Day1;
 
+using System.Diagnostics;
 using Common;
 
 class Puzzle : IPuzzle
@@ -10,11 +11,17 @@ class Puzzle : IPuzzle
 
     public void Part1()
     {
-        Console.WriteLine($"{Name}:1 --> {Sums().First()}");
+        var first = Sums().First();
+        Debug.Assert(first == 71506);
+
+        Console.WriteLine($"{Name}:1 --> {first}");
     }
     public void Part2()
     {
-        Console.WriteLine($"{Name}:2 --> {Sums().Take(3).Sum()}");
+        var firstThree = Sums().Take(3).Sum();
+        Debug.Assert(firstThree == 209603);
+
+        Console.WriteLine($"{Name}:2 --> {firstThree}");
     }
     private static IEnumerable<int> Sums()
     {

@@ -20,4 +20,10 @@ public static class Utils
 
         yield return result;
     }
+
+    public static string CommonChars(string a, string b)
+    {
+        return new string((a.ToCharArray().Intersect(b.ToCharArray())).ToArray());
+    }
+
 }

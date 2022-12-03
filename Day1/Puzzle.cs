@@ -6,6 +6,8 @@ class Puzzle : IPuzzle
 {
     public string Name { get { return "Day 1"; } }
 
+    public void Test() { }
+
     public void Part1()
     {
         Console.WriteLine($"{Name}:1 --> {Sums().First()}");

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Common;
 
 namespace Day2;
 
@@ -7,14 +8,14 @@ class Puzzle : IPuzzle
     enum RPS { ROCK, PAPER, SCISSOR };
     enum MoveResult { Loss = 0, Draw = 3, Win = 6 }
 
-    RPS ParseFirst(string c) => c switch
+    static RPS ParseFirst(string c) => c switch
     {
         "A" => RPS.ROCK,
         "B" => RPS.PAPER,
         "C" => RPS.SCISSOR,
         _ => throw new InvalidProgramException()
     };
-    RPS ParseSecond(string c) => c switch
+    static RPS ParseSecond(string c) => c switch
     {
         "X" => RPS.ROCK,
         "Y" => RPS.PAPER,
@@ -22,7 +23,7 @@ class Puzzle : IPuzzle
         _ => throw new InvalidProgramException()
     };
 
-    MoveResult ParseMove(string c) => c switch
+    static MoveResult ParseMove(string c) => c switch
     {
         "X" => MoveResult.Loss,
         "Y" => MoveResult.Draw,
@@ -30,7 +31,7 @@ class Puzzle : IPuzzle
         _ => throw new InvalidProgramException()
     };
 
-    MoveResult Move(RPS they, RPS we)
+    static MoveResult Move(RPS they, RPS we)
     {
         MoveResult r = MoveResult.Draw;
         if (we == WinFrom(they))
@@ -40,7 +41,7 @@ class Puzzle : IPuzzle
         return r;
     }
 
-    RPS LoseFrom(RPS they) => they switch
+    static RPS LoseFrom(RPS they) => they switch
     {
         RPS.ROCK => RPS.SCISSOR,
         RPS.PAPER => RPS.ROCK,
@@ -48,7 +49,7 @@ class Puzzle : IPuzzle
         _ => throw new InvalidProgramException()
     };
 
-    RPS WinFrom(RPS they) => they switch
+    static RPS WinFrom(RPS they) => they switch
     {
         RPS.ROCK => RPS.PAPER,
         RPS.PAPER => RPS.SCISSOR,
@@ -56,7 +57,7 @@ class Puzzle : IPuzzle
         _ => throw new InvalidProgramException()
     };
 
-    RPS DetermineSecond(RPS they, string c)
+    static RPS DetermineSecond(RPS they, string c)
     {
         return ParseMove(c) switch
         {
@@ -67,7 +68,7 @@ class Puzzle : IPuzzle
         };
     }
 
-    int Value(RPS s) => s switch
+    static int Value(RPS s) => s switch
     {
         RPS.ROCK => 1,
         RPS.PAPER => 2,
@@ -115,25 +116,27 @@ class Puzzle : IPuzzle
         Debug.Assert(PlayRound1(input[0]) == 8);
         Debug.Assert(PlayRound1(input[1]) == 1);
         Debug.Assert(PlayRound1(input[2]) == 6);
-        Debug.Assert(input.AsEnumerable().Select(x => PlayRound1(x)).Sum() == 15);
+        Debug.Assert(input.Select(x => PlayRound1(x)).Sum() == 15);
 
         Debug.Assert(PlayRound2(input[0]) == 4);
         Debug.Assert(PlayRound2(input[1]) == 1);
         Debug.Assert(PlayRound2(input[2]) == 7);
-        Debug.Assert(input.AsEnumerable().Select(x => PlayRound2(x)).Sum() == 12);
+        Debug.Assert(input.Select(x => PlayRound2(x)).Sum() == 12);
     }
 
     public void Part1()
     {
-        var score = File.ReadAllLines("Day2/Input.txt").AsEnumerable().Select(x => PlayRound1(x)).Sum();
-        
+        var score = new TextFile("Day2/Input.txt").Select(PlayRound1)
+            .Sum();
+
         Debug.Assert(score == 15422);
         Console.WriteLine($"{Name}:1 --> {score}");
     }
     public void Part2()
     {
-        var score = File.ReadAllLines("Day2/Input.txt").AsEnumerable().Select(x => PlayRound2(x)).Sum();
-        
+        var score = new TextFile("Day2/Input.txt").Select(PlayRound2)
+            .Sum();
+
         Debug.Assert(score == 15442);
         Console.WriteLine($"{Name}:2 --> {score}");
     }

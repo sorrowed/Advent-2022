@@ -4,5 +4,13 @@ var builder = new ContainerBuilder();
 builder.RegisterType<Day1.Puzzle>().As<IPuzzle>();
 builder.RegisterType<Day2.Puzzle>().As<IPuzzle>();
 builder.RegisterType<Day3.Puzzle>().As<IPuzzle>();
+builder.RegisterType<Day4.Puzzle>().As<IPuzzle>();
+builder.RegisterType<Day5.Puzzle>().As<IPuzzle>();
 
-builder.Build().Resolve<IEnumerable<IPuzzle>>().ToList().ForEach(day => { day.Test(); day.Part1(); day.Part2(); });
+var puzzles = builder.Build().Resolve<IEnumerable<IPuzzle>>();
+foreach (var puzzle in puzzles)
+{
+    puzzle.Test();
+    puzzle.Part1();
+    puzzle.Part2();
+}

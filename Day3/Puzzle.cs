@@ -13,11 +13,11 @@ struct Rucksack
 
     public string Left
     {
-        get { return Content.Substring(0, Content.Length / 2); }
+        get { return Content[..(Content.Length / 2)]; }
     }
     public string Right
     {
-        get { return Content.Substring(Content.Length / 2); }
+        get { return Content[(Content.Length / 2)..]; }
     }
 
     public char SharedItem
@@ -38,7 +38,7 @@ class Puzzle : IPuzzle
 {
     public string Name { get { return "Day 3"; } }
 
-    int Priority(char item)
+    static int Priority(char item)
     {
         return Char.IsUpper(item) ? item - 'A' + 27 : item - 'a' + 1;
     }
@@ -79,7 +79,7 @@ class Puzzle : IPuzzle
 
     public void Part1()
     {
-        var priority = File.ReadAllLines("Day3/Input.txt").AsEnumerable()
+        var priority = new TextFile("Day3/Input.txt")
             .Select(x => Priority(new Rucksack(x).SharedItem))
             .Sum();
 
@@ -90,7 +90,7 @@ class Puzzle : IPuzzle
     public void Part2()
     {
         // Take the instersection of groups of three rucksacks
-        var priority = File.ReadAllLines("Day3/Input.txt").AsEnumerable()
+        var priority = new TextFile("Day3/Input.txt")
             .Select(line => new Rucksack(line))
             .Chunk(3)
             .Select(chunk => chunk.Aggregate((common, rucksack) => common.Intersect(rucksack)))

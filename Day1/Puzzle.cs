@@ -25,7 +25,8 @@ class Puzzle : IPuzzle
     }
     private static IEnumerable<int> Sums()
     {
-        var chunks = File.ReadAllLines("Day1/Input.txt").ChunkBy(line => line == "");
-        return chunks.Select(chunk => chunk.Select(line => int.Parse(line)).Sum()).OrderByDescending(sum => sum);
+        var chunks = new TextFile("Day1/Input.txt").ChunkBy(line => line == "");
+        return chunks.Select(chunk => chunk.Select(line => int.Parse(line)).Sum())
+            .OrderByDescending(sum => sum);
     }
 }

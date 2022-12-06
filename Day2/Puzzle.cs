@@ -3,8 +3,10 @@ using Common;
 
 namespace Day2;
 
-class Puzzle : IPuzzle
+class Puzzle : PuzzleBase
 {
+    public Puzzle() : base(2) { }
+
     enum RPS { ROCK, PAPER, SCISSOR };
     enum MoveResult { Loss = 0, Draw = 3, Win = 6 }
 
@@ -92,9 +94,7 @@ class Puzzle : IPuzzle
         return (int)Move(t.Item1, t.Item2) + Value(t.Item2);
     }
 
-    public string Name { get { return "Day 2"; } }
-
-    public void Test()
+    public override void Test()
     {
         string[] input = { "A Y", "B X", "C Z" };
 
@@ -124,7 +124,7 @@ class Puzzle : IPuzzle
         Debug.Assert(input.Select(x => PlayRound2(x)).Sum() == 12);
     }
 
-    public void Part1()
+    public override void Part1()
     {
         var score = new TextFile("Day2/Input.txt").Select(PlayRound1)
             .Sum();
@@ -132,7 +132,7 @@ class Puzzle : IPuzzle
         Debug.Assert(score == 15422);
         Console.WriteLine($"{Name}:1 --> {score}");
     }
-    public void Part2()
+    public override void Part2()
     {
         var score = new TextFile("Day2/Input.txt").Select(PlayRound2)
             .Sum();

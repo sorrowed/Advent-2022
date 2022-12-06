@@ -23,15 +23,6 @@ public static class Utils
         yield return result;
     }
 
-    public static IEnumerable<T> Apply<T>(this IEnumerable<T> source, Action<T> action)
-    {
-        foreach (var e in source)
-        {
-            action(e);
-            yield return e;
-        }
-    }
-
     public static string CommonChars(string a, string b)
     {
         return new string(a.ToCharArray().Intersect(b.ToCharArray()).ToArray());

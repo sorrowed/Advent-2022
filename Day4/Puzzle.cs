@@ -34,11 +34,10 @@ struct Pair
     }
 }
 
-class Puzzle : IPuzzle
+class Puzzle : PuzzleBase
 {
-    public string Name { get { return "Day 4"; } }
-
-    public void Test()
+    public Puzzle() : base(4) { }
+    public override void Test()
     {
         string[] input =
         {
@@ -67,7 +66,7 @@ class Puzzle : IPuzzle
         Debug.Assert(pairs2.Count() == 4);
     }
 
-    public void Part1()
+    public override void Part1()
     {
         var count = new TextFile("Day4/Input.txt")
             .Select(Parse)
@@ -79,7 +78,7 @@ class Puzzle : IPuzzle
         Console.WriteLine($"{Name}:1 --> {count}");
     }
 
-    public void Part2()
+    public override void Part2()
     {
         var count = new TextFile("Day4/Input.txt")
             .Select(Parse)

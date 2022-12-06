@@ -45,11 +45,10 @@ class Crane9001
     }
 };
 
-class Puzzle : IPuzzle
+class Puzzle : PuzzleBase
 {
-    public string Name { get { return "Day 5"; } }
-
-    public void Test()
+    public Puzzle() : base(5) { }
+    public override void Test()
     {
         var stacks = new string[] { "ZN", "MCD", "P" };
         string[] input =
@@ -75,7 +74,7 @@ class Puzzle : IPuzzle
         Debug.Assert(stacks[2].Length == 4 && stacks[2].Last() == 'Z');
     }
 
-    public void Part1()
+    public override void Part1()
     {
         var stacks = Stacks();
 
@@ -92,7 +91,7 @@ class Puzzle : IPuzzle
         Console.WriteLine($"{Name}:1 --> {topCrates}");
     }
 
-    public void Part2()
+    public override void Part2()
     {
         var stacks = Stacks();
 

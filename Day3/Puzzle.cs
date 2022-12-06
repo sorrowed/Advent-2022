@@ -34,16 +34,15 @@ struct Rucksack
     }
 }
 
-class Puzzle : IPuzzle
+class Puzzle : PuzzleBase
 {
-    public string Name { get { return "Day 3"; } }
-
+    public Puzzle() : base(3) { }
     static int Priority(char item)
     {
         return Char.IsUpper(item) ? item - 'A' + 27 : item - 'a' + 1;
     }
 
-    public void Test()
+    public override void Test()
     {
         Debug.Assert(Priority('a') == 1);
         Debug.Assert(Priority('z') == 26);
@@ -77,7 +76,7 @@ class Puzzle : IPuzzle
         Debug.Assert(priority == 70);
     }
 
-    public void Part1()
+    public override void Part1()
     {
         var priority = new TextFile("Day3/Input.txt")
             .Select(x => Priority(new Rucksack(x).SharedItem))
@@ -87,7 +86,7 @@ class Puzzle : IPuzzle
         Console.WriteLine($"{Name}:1 --> {priority}");
     }
 
-    public void Part2()
+    public override void Part2()
     {
         // Take the instersection of groups of three rucksacks
         var priority = new TextFile("Day3/Input.txt")

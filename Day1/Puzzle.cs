@@ -3,20 +3,19 @@ namespace Day1;
 using System.Diagnostics;
 using Common;
 
-class Puzzle : IPuzzle
+class Puzzle : PuzzleBase
 {
-    public string Name { get { return "Day 1"; } }
+    public Puzzle() : base(1) { }
+    public override void Test() { }
 
-    public void Test() { }
-
-    public void Part1()
+    public override void Part1()
     {
         var first = Sums().First();
         Debug.Assert(first == 71506);
 
         Console.WriteLine($"{Name}:1 --> {first}");
     }
-    public void Part2()
+    public override void Part2()
     {
         var firstThree = Sums().Take(3).Sum();
         Debug.Assert(firstThree == 209603);

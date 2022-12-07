@@ -7,6 +7,7 @@ builder.RegisterType<Day3.Puzzle>().As<PuzzleBase>();
 builder.RegisterType<Day4.Puzzle>().As<PuzzleBase>();
 builder.RegisterType<Day5.Puzzle>().As<PuzzleBase>();
 builder.RegisterType<Day6.Puzzle>().As<PuzzleBase>();
+builder.RegisterType<Day7.Puzzle>().As<PuzzleBase>();
 
 var puzzles = builder.Build().Resolve<IEnumerable<PuzzleBase>>();
 foreach (var puzzle in puzzles)

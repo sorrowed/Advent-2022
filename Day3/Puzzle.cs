@@ -78,17 +78,20 @@ class Puzzle : PuzzleBase
 
     public override void Part1()
     {
+        _sw.Restart();
         var priority = new TextFile("Day3/Input.txt")
             .Select(x => Priority(new Rucksack(x).SharedItem))
             .Sum();
+        _sw.Stop();
 
         Debug.Assert(priority == 8018);
-        Console.WriteLine($"{Name}:1 --> {priority}");
+        Console.WriteLine($"{Name}:1 --> {priority} in {_sw.ElapsedMilliseconds} ms");
     }
 
     public override void Part2()
     {
         // Take the instersection of groups of three rucksacks
+        _sw.Restart();
         var priority = new TextFile("Day3/Input.txt")
             .Select(line => new Rucksack(line))
             .Chunk(3)
@@ -97,6 +100,8 @@ class Puzzle : PuzzleBase
             .Sum();
 
         Debug.Assert(priority == 2518);
-        Console.WriteLine($"{Name}:2 --> {priority}");
+        _sw.Stop();
+
+        Console.WriteLine($"{Name}:2 --> {priority} in {_sw.ElapsedMilliseconds} ms");
     }
 }

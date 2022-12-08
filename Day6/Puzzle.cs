@@ -32,19 +32,22 @@ class Puzzle : PuzzleBase
 
     public override void Part1()
     {
+        _sw.Restart();
         var startOfPacket = Unique(File.OpenText("Day6/Input.txt").ReadToEnd(), 4);
 
         Debug.Assert(startOfPacket.Item1 == 1300);
-
-        Console.WriteLine($"{Name}:1 --> {startOfPacket.Item1}");
+        _sw.Stop();
+        Console.WriteLine($"{Name}:1 --> {startOfPacket.Item1} in {_sw.ElapsedMilliseconds} ms");
     }
 
     public override void Part2()
     {
+        _sw.Restart();
         var startOfMessage = Unique(File.OpenText("Day6/Input.txt").ReadToEnd(), 14);
 
         Debug.Assert(startOfMessage.Item1 == 3986);
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:2 --> {startOfMessage.Item1}");
+        Console.WriteLine($"{Name}:2 --> {startOfMessage.Item1} in {_sw.ElapsedMilliseconds} ms");
     }
 }

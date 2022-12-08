@@ -84,28 +84,32 @@ class Puzzle : PuzzleBase
 
     public override void Part1()
     {
+        _sw.Restart();
         var size = BuidFileSystem(new TextFile("Day7/Input.txt"))
             .Filter((d) => d.Size() <= 100000)
             .Sum(d => d.Size());
 
         Debug.Assert(size == 1583951);
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:1 --> {size}");
+        Console.WriteLine($"{Name}:1 --> {size} in {_sw.ElapsedMilliseconds} ms");
     }
 
     public override void Part2()
     {
+        _sw.Restart();
         var filesystem = BuidFileSystem(new TextFile("Day7/Input.txt"));
         var spaceWanted = 30000000 - (70000000 - filesystem.Size());
 
         var dir = filesystem.Filter(d => d.Size() >= spaceWanted).OrderBy(d => d.Size()).First();
 
         Debug.Assert(dir.Size() == 214171);
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:2 --> {dir.Size()}");
+        Console.WriteLine($"{Name}:2 --> {dir.Size()} in {_sw.ElapsedMilliseconds} ms");
     }
 
-    Dir BuidFileSystem(IEnumerable<string> input)
+    private static Dir BuidFileSystem(IEnumerable<string> input)
     {
         var root = new Dir { Name = "/" };
         Dir? currentDir = null;

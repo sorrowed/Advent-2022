@@ -68,26 +68,30 @@ class Puzzle : PuzzleBase
 
     public override void Part1()
     {
+        _sw.Restart();
         var count = new TextFile("Day4/Input.txt")
             .Select(Parse)
             .Where(pair => pair.IsContaining)
             .Count();
 
         Debug.Assert(count == 550);
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:1 --> {count}");
+        Console.WriteLine($"{Name}:1 --> {count} in {_sw.ElapsedMilliseconds} ms");
     }
 
     public override void Part2()
     {
+        _sw.Restart();
         var count = new TextFile("Day4/Input.txt")
             .Select(Parse)
             .Where(pair => pair.IsOverlapping)
             .Count();
 
         Debug.Assert(count == 931);
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:2 --> {count}");
+        Console.WriteLine($"{Name}:2 --> {count} in {_sw.ElapsedMilliseconds} ms");
     }
 
     private static Pair Parse(string input)

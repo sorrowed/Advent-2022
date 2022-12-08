@@ -126,18 +126,24 @@ class Puzzle : PuzzleBase
 
     public override void Part1()
     {
+        _sw.Restart();
         var score = new TextFile("Day2/Input.txt").Select(PlayRound1)
             .Sum();
 
         Debug.Assert(score == 15422);
-        Console.WriteLine($"{Name}:1 --> {score}");
+        _sw.Stop();
+
+        Console.WriteLine($"{Name}:1 --> {score} in {_sw.ElapsedMilliseconds} ms");
     }
     public override void Part2()
     {
+        _sw.Restart();
         var score = new TextFile("Day2/Input.txt").Select(PlayRound2)
             .Sum();
 
         Debug.Assert(score == 15442);
-        Console.WriteLine($"{Name}:2 --> {score}");
+        _sw.Stop();
+
+        Console.WriteLine($"{Name}:2 --> {score} in {_sw.ElapsedMilliseconds} ms");
     }
 }

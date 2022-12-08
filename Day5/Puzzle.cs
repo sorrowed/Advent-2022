@@ -76,6 +76,7 @@ class Puzzle : PuzzleBase
 
     public override void Part1()
     {
+        _sw.Restart();
         var stacks = Stacks();
 
         var crane = new Crane9000();
@@ -87,12 +88,14 @@ class Puzzle : PuzzleBase
         var topCrates = stacks.Aggregate("", (acc, stack) => acc + stack[^1]);
 
         Debug.Assert(topCrates == "FWSHSPJWM");
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:1 --> {topCrates}");
+        Console.WriteLine($"{Name}:1 --> {topCrates} in {_sw.ElapsedMilliseconds} ms");
     }
 
     public override void Part2()
     {
+        _sw.Restart();
         var stacks = Stacks();
 
         var crane = new Crane9001();
@@ -103,21 +106,22 @@ class Puzzle : PuzzleBase
         var topCrates = stacks.Aggregate("", (acc, stack) => acc + stack[^1]);
 
         Debug.Assert(topCrates == "PWPWHGFZS");
+        _sw.Stop();
 
-        Console.WriteLine($"{Name}:2 --> {topCrates}");
+        Console.WriteLine($"{Name}:2 --> {topCrates} in {_sw.ElapsedMilliseconds} ms");
     }
 
 
     /*
-        [C]         [S] [H]                
-        [F] [B]     [C] [S]     [W]        
-        [B] [W]     [W] [M] [S] [B]        
-        [L] [H] [G] [L] [P] [F] [Q]        
-        [D] [P] [J] [F] [T] [G] [M] [T]    
+        [C]         [S] [H]
+        [F] [B]     [C] [S]     [W]
+        [B] [W]     [W] [M] [S] [B]
+        [L] [H] [G] [L] [P] [F] [Q]
+        [D] [P] [J] [F] [T] [G] [M] [T]
         [P] [G] [B] [N] [L] [W] [P] [W] [R]
         [Z] [V] [W] [J] [J] [C] [T] [S] [C]
         [S] [N] [F] [G] [W] [B] [H] [F] [N]
-        1   2   3   4   5   6   7   8   9 
+        1   2   3   4   5   6   7   8   9
      */
     private string[] Stacks()
     {

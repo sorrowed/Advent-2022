@@ -165,7 +165,7 @@ class Puzzle : PuzzleBase
         };
 
         {
-            var rope = new Rope(2, new Vector(0, 0), new Vector(6, 6), true);
+            var rope = new Rope(2, new Vector(0, 0), new Vector(6, 6));
 
             foreach (var move in Moves(input))
             {

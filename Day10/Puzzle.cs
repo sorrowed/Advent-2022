@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using Common;
 
-class CRT
+class Crt
 {
     private const int DISPLAY_COLUMNS = 40;
 
@@ -12,7 +12,7 @@ class CRT
 
     private readonly StringBuilder _output = new("\n");
 
-    public CRT(CPU cpu)
+    public Crt(Cpu cpu)
     {
         cpu.OnCycleBegin += (sender, args) =>
         {
@@ -20,7 +20,7 @@ class CRT
         };
     }
 
-    private void Cycle(CPU cpu)
+    private void Cycle(Cpu cpu)
     {
         if (IsSpriteInView(cpu))
         {
@@ -37,7 +37,7 @@ class CRT
         }
     }
 
-    private static bool IsSpriteInView(CPU cpu)
+    private static bool IsSpriteInView(Cpu cpu)
     {
         long middle = cpu.Registers["x"];
         int column = (cpu.Cycle - 1) % DISPLAY_COLUMNS;
@@ -52,49 +52,54 @@ class Puzzle : PuzzleBase
 
     public override void Test()
     {
+        Test1();
+        Test2();
+    }
+
+    private static void Test1()
+    {
+        string[] input =
         {
-            string[] input =
-            {
                 "noop",
                 "addx 3",
                 "addx -5",
             };
 
-            var instructions = input.Select(InstructionFactory.Parse);
+        var instructions = input.Select(InstructionFactory.Parse);
 
-            var cpu = new CPU();
-            cpu.Run(instructions);
+        var cpu = new Cpu();
+        cpu.Run(instructions);
 
-            Debug.Assert(cpu.Registers["x"] == -1);
-        }
+        Debug.Assert(cpu.Registers["x"] == -1);
+    }
 
+    private static void Test2()
+    {
+        var instructions = new TextFile("Day10/TestInput.txt").Select(InstructionFactory.Parse);
+        long strength = 0;
+
+        var cpu = new Cpu();
+        cpu.OnCycleBegin += (_, args) =>
         {
-            var instructions = new TextFile("Day10/TestInput.txt").Select(InstructionFactory.Parse);
-            long strength = 0;
+            var cpu = args.CPU!;
 
-            var cpu = new CPU();
-            cpu.OnCycleBegin += (_, args) =>
+            Debug.Assert(cpu.Cycle != 20 || cpu.Registers["x"] == 21);
+            Debug.Assert(cpu.Cycle != 60 || cpu.Registers["x"] == 19);
+            Debug.Assert(cpu.Cycle != 100 || cpu.Registers["x"] == 18);
+            Debug.Assert(cpu.Cycle != 140 || cpu.Registers["x"] == 21);
+            Debug.Assert(cpu.Cycle != 180 || cpu.Registers["x"] == 16);
+            Debug.Assert(cpu.Cycle != 220 || cpu.Registers["x"] == 18);
+
+            if (UnevenlyDivisibleBy20(cpu.Cycle))
             {
-                var cpu = args.CPU!;
+                strength += cpu.Cycle * cpu.Registers["x"];
+            }
+        };
 
-                Debug.Assert(cpu.Cycle != 20 || cpu.Registers["x"] == 21);
-                Debug.Assert(cpu.Cycle != 60 || cpu.Registers["x"] == 19);
-                Debug.Assert(cpu.Cycle != 100 || cpu.Registers["x"] == 18);
-                Debug.Assert(cpu.Cycle != 140 || cpu.Registers["x"] == 21);
-                Debug.Assert(cpu.Cycle != 180 || cpu.Registers["x"] == 16);
-                Debug.Assert(cpu.Cycle != 220 || cpu.Registers["x"] == 18);
+        cpu.Run(instructions);
 
-                if (UnevenlyDivisibleBy20(cpu.Cycle))
-                {
-                    strength += cpu.Cycle * cpu.Registers["x"];
-                }
-            };
-
-            cpu.Run(instructions);
-
-            Debug.Assert(cpu.Registers["x"] == 17);
-            Debug.Assert(strength == 13140);
-        }
+        Debug.Assert(cpu.Registers["x"] == 17);
+        Debug.Assert(strength == 13140);
     }
 
     private static bool UnevenlyDivisibleBy20(int value)
@@ -106,7 +111,7 @@ class Puzzle : PuzzleBase
     {
         var instructions = new TextFile("Day10/Input.txt").Select(InstructionFactory.Parse);
 
-        var cpu = new CPU();
+        var cpu = new Cpu();
 
         long strength = 0;
 
@@ -132,8 +137,8 @@ class Puzzle : PuzzleBase
     {
         var instructions = new TextFile("Day10/Input.txt").Select(InstructionFactory.Parse);
 
-        var cpu = new CPU();
-        var crt = new CRT(cpu);
+        var cpu = new Cpu();
+        var crt = new Crt(cpu);
 
         _sw.Restart();
         cpu.Run(instructions);

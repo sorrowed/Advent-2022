@@ -131,7 +131,7 @@ class Puzzle : PuzzleBase
                     }
                     else
                     {
-                        currentDir = currentDir!.Dirs.Where(d => d.Name == tokens[2]).First();
+                        currentDir = currentDir!.Dirs.First(d => d.Name == tokens[2]);
                     }
                 }
             }

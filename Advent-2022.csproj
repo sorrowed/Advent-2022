@@ -10,5 +10,9 @@
 
   <ItemGroup>
     <PackageReference Include="autofac" Version="6.5.0" />
+    <PackageReference Include="sonaranalyzer.csharp" Version="8.50.0.58025">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

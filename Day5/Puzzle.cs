@@ -23,9 +23,9 @@ struct Move
     }
 }
 
-class Crane9000
+internal static class Crane9000
 {
-    public void Apply(string[] stacks, Move move)
+    public static void Apply(string[] stacks, Move move)
     {
         var from = stacks[move.From - 1];
 
@@ -34,9 +34,9 @@ class Crane9000
     }
 };
 
-class Crane9001
+internal static class Crane9001
 {
-    public void Apply(string[] stacks, Move move)
+    public static void Apply(string[] stacks, Move move)
     {
         var from = stacks[move.From - 1];
 
@@ -63,10 +63,9 @@ class Puzzle : PuzzleBase
         Debug.Assert(moves.Length == 4);
         Debug.Assert(moves[0].From == 2 && moves[0].To == 1 && moves[0].HowMany == 1);
 
-        var crane = new Crane9000();
         foreach (var move in moves)
         {
-            crane.Apply(stacks, move);
+            Crane9000.Apply(stacks, move);
         }
 
         Debug.Assert(stacks[0].Length == 1 && stacks[0].Last() == 'C');
@@ -79,10 +78,9 @@ class Puzzle : PuzzleBase
         _sw.Restart();
         var stacks = Stacks();
 
-        var crane = new Crane9000();
         foreach (var move in new TextFile("Day5/Input.txt").Select(Move.Parse))
         {
-            crane.Apply(stacks, move);
+            Crane9000.Apply(stacks, move);
         }
 
         var topCrates = stacks.Aggregate("", (acc, stack) => acc + stack[^1]);
@@ -98,10 +96,9 @@ class Puzzle : PuzzleBase
         _sw.Restart();
         var stacks = Stacks();
 
-        var crane = new Crane9001();
         foreach (var move in new TextFile("Day5/Input.txt").Select(Move.Parse))
         {
-            crane.Apply(stacks, move);
+            Crane9001.Apply(stacks, move);
         }
         var topCrates = stacks.Aggregate("", (acc, stack) => acc + stack[^1]);
 
@@ -123,7 +120,7 @@ class Puzzle : PuzzleBase
         [S] [N] [F] [G] [W] [B] [H] [F] [N]
         1   2   3   4   5   6   7   8   9
      */
-    private string[] Stacks()
+    private static string[] Stacks()
     {
         return new string[]
         {

@@ -71,8 +71,7 @@ class Puzzle : PuzzleBase
         _sw.Restart();
         var count = new TextFile("Day4/Input.txt")
             .Select(Parse)
-            .Where(pair => pair.IsContaining)
-            .Count();
+            .Count(pair => pair.IsContaining);
 
         Debug.Assert(count == 550);
         _sw.Stop();
@@ -85,8 +84,7 @@ class Puzzle : PuzzleBase
         _sw.Restart();
         var count = new TextFile("Day4/Input.txt")
             .Select(Parse)
-            .Where(pair => pair.IsOverlapping)
-            .Count();
+            .Count(pair => pair.IsOverlapping);
 
         Debug.Assert(count == 931);
         _sw.Stop();

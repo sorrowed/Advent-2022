@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Common;
 
 var builder = new ContainerBuilder();
 builder.RegisterType<Day1.Puzzle>().As<PuzzleBase>();

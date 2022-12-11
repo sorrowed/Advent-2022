@@ -164,29 +164,8 @@ class Puzzle : PuzzleBase
             "R 2",
         };
 
-        {
-            var rope = new Rope(2, new Vector(0, 0), new Vector(6, 6));
-
-            foreach (var move in Moves(input))
-            {
-                rope.Move(move);
-            }
-
-            Debug.Assert(rope.Head == new Vector(2, 2));
-            Debug.Assert(rope.Tail == new Vector(1, 2));
-            Debug.Assert(rope.TailPositions.Count == 13);
-        }
-        {
-            var rope = new Rope(10, new Vector(0, 0), new Vector(6, 6));
-            foreach (var move in Moves(input))
-            {
-                rope.Move(move);
-            }
-
-            Debug.Assert(rope.Head == new Vector(2, 2));
-            Debug.Assert(rope.Tail == new Vector(0, 0));
-            Debug.Assert(rope.TailPositions.Count == 1);
-        }
+        Test1(input);
+        Test2(input);
 
         string[] input2 =
         {
@@ -199,17 +178,47 @@ class Puzzle : PuzzleBase
             "L 25",
             "U 20",
         };
-        {
-            var rope = new Rope(10, new Vector(-11, -5), new Vector(14, 15));
-            foreach (var move in Moves(input2))
-            {
-                rope.Move(move);
-            }
+        Test3(input2);
+    }
 
-            Debug.Assert(rope.Head == new Vector(-11, 15));
-            Debug.Assert(rope.Tail == new Vector(-11, 6));
-            Debug.Assert(rope.TailPositions.Count == 36);
+    private static void Test1(string[] input)
+    {
+        var rope = new Rope(2, new Vector(0, 0), new Vector(6, 6));
+
+        foreach (var move in Moves(input))
+        {
+            rope.Move(move);
         }
+
+        Debug.Assert(rope.Head == new Vector(2, 2));
+        Debug.Assert(rope.Tail == new Vector(1, 2));
+        Debug.Assert(rope.TailPositions.Count == 13);
+    }
+
+    private static void Test2(string[] input)
+    {
+        var rope = new Rope(10, new Vector(0, 0), new Vector(6, 6));
+        foreach (var move in Moves(input))
+        {
+            rope.Move(move);
+        }
+
+        Debug.Assert(rope.Head == new Vector(2, 2));
+        Debug.Assert(rope.Tail == new Vector(0, 0));
+        Debug.Assert(rope.TailPositions.Count == 1);
+    }
+
+    private static void Test3(string[] input2)
+    {
+        var rope = new Rope(10, new Vector(-11, -5), new Vector(14, 15));
+        foreach (var move in Moves(input2))
+        {
+            rope.Move(move);
+        }
+
+        Debug.Assert(rope.Head == new Vector(-11, 15));
+        Debug.Assert(rope.Tail == new Vector(-11, 6));
+        Debug.Assert(rope.TailPositions.Count == 36);
     }
 
     public override void Part1()

@@ -9,7 +9,7 @@ abstract class Monkey
     public int FalseTarget { get; private init; }
     public int Inspected { get; private set; } = 0;
 
-    public Monkey(int id, List<long> items, long testValue, int trueTarget, int falseTarget)
+    protected Monkey(int id, List<long> items, long testValue, int trueTarget, int falseTarget)
     {
         Id = id;
         Items = items;

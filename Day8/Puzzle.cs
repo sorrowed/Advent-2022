@@ -59,7 +59,7 @@ class Forest
         bool visible = true;
         for (int toTheLeft = x - 1; visible && toTheLeft >= 0; --toTheLeft)
         {
-            visible = visible && _heightMap[y][toTheLeft] < _heightMap[y][x];
+            visible &= (_heightMap[y][toTheLeft] < _heightMap[y][x]);
         }
         return visible;
     }
@@ -70,7 +70,7 @@ class Forest
         bool visible = true;
         for (int toTheRight = x + 1; visible && toTheRight < Width(y); ++toTheRight)
         {
-            visible = visible && _heightMap[y][toTheRight] < _heightMap[y][x];
+            visible &= (_heightMap[y][toTheRight] < _heightMap[y][x]);
         }
         return visible;
     }
@@ -81,7 +81,7 @@ class Forest
 
         for (int toTheTop = y - 1; visible && toTheTop >= 0; --toTheTop)
         {
-            visible = visible && _heightMap[toTheTop][x] < _heightMap[y][x];
+            visible &= (_heightMap[toTheTop][x] < _heightMap[y][x]);
         }
         return visible;
     }
@@ -92,7 +92,7 @@ class Forest
 
         for (int toTheBottom = y + 1; visible && toTheBottom < Height; ++toTheBottom)
         {
-            visible = visible && _heightMap[toTheBottom][x] < _heightMap[y][x];
+            visible &= (_heightMap[toTheBottom][x] < _heightMap[y][x]);
         }
 
         return visible;

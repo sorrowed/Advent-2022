@@ -7,7 +7,7 @@ class Puzzle : PuzzleBase
 {
     public Puzzle() : base(6) { }
 
-    private Tuple<int, string> Unique(string input, int count)
+    private static Tuple<int, string> Unique(string input, int count)
     {
         for (int i = 0; i < input.Length - count; ++i)
         {

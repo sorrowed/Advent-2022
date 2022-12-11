@@ -4,51 +4,56 @@ using TestMonkeys;
 using System.Diagnostics;
 using Common;
 
-
 class Puzzle : PuzzleBase
 {
     public Puzzle() : base(11) { }
 
     public override void Test()
     {
-        {
-            List<Monkey> monkeys = new() { new TestMonkey0(), new TestMonkey1(), new TestMonkey2(), new TestMonkey3() };
 
-            PlayRelaxed(monkeys, 1);
-
-            Debug.Assert(monkeys[0].Items.SequenceEqual(new List<long> { 20, 23, 27, 26 }));
-            Debug.Assert(monkeys[1].Items.SequenceEqual(new List<long> { 2080, 25, 167, 207, 401, 1046 }));
-            Debug.Assert(monkeys[2].Items.SequenceEqual(new List<long> { }));
-            Debug.Assert(monkeys[3].Items.SequenceEqual(new List<long> { }));
-
-            PlayRelaxed(monkeys, 19);
-
-            Debug.Assert(monkeys[0].Items.SequenceEqual(new List<long> { 10, 12, 14, 26, 34 }));
-            Debug.Assert(monkeys[1].Items.SequenceEqual(new List<long> { 245, 93, 53, 199, 115 }));
-            Debug.Assert(monkeys[2].Items.SequenceEqual(new List<long> { }));
-            Debug.Assert(monkeys[3].Items.SequenceEqual(new List<long> { }));
-
-            Debug.Assert(monkeys[0].Inspected == 101);
-            Debug.Assert(monkeys[1].Inspected == 95);
-            Debug.Assert(monkeys[2].Inspected == 7);
-            Debug.Assert(monkeys[3].Inspected == 105);
-        }
-
-        {
-            List<Monkey> monkeys = new() { new TestMonkey0(), new TestMonkey1(), new TestMonkey2(), new TestMonkey3() };
-
-            PlayWorried(monkeys, 10000);
-
-            Debug.Assert(monkeys[0].Inspected == 52166);
-            Debug.Assert(monkeys[1].Inspected == 47830);
-            Debug.Assert(monkeys[2].Inspected == 1938);
-            Debug.Assert(monkeys[3].Inspected == 52013);
-
-            Debug.Assert(Busines(monkeys) == 2713310158);
-        }
+        Test1();
+        Test2();
     }
 
-    private void PlayRelaxed(List<Monkey> monkeys, int rounds)
+    private static void Test1()
+    {
+        List<Monkey> monkeys = new() { new TestMonkey0(), new TestMonkey1(), new TestMonkey2(), new TestMonkey3() };
+
+        PlayRelaxed(monkeys, 1);
+
+        Debug.Assert(monkeys[0].Items.SequenceEqual(new List<long> { 20, 23, 27, 26 }));
+        Debug.Assert(monkeys[1].Items.SequenceEqual(new List<long> { 2080, 25, 167, 207, 401, 1046 }));
+        Debug.Assert(monkeys[2].Items.SequenceEqual(new List<long> { }));
+        Debug.Assert(monkeys[3].Items.SequenceEqual(new List<long> { }));
+
+        PlayRelaxed(monkeys, 19);
+
+        Debug.Assert(monkeys[0].Items.SequenceEqual(new List<long> { 10, 12, 14, 26, 34 }));
+        Debug.Assert(monkeys[1].Items.SequenceEqual(new List<long> { 245, 93, 53, 199, 115 }));
+        Debug.Assert(monkeys[2].Items.SequenceEqual(new List<long> { }));
+        Debug.Assert(monkeys[3].Items.SequenceEqual(new List<long> { }));
+
+        Debug.Assert(monkeys[0].Inspected == 101);
+        Debug.Assert(monkeys[1].Inspected == 95);
+        Debug.Assert(monkeys[2].Inspected == 7);
+        Debug.Assert(monkeys[3].Inspected == 105);
+    }
+
+    private static void Test2()
+    {
+        List<Monkey> monkeys = new() { new TestMonkey0(), new TestMonkey1(), new TestMonkey2(), new TestMonkey3() };
+
+        PlayWorried(monkeys, 10000);
+
+        Debug.Assert(monkeys[0].Inspected == 52166);
+        Debug.Assert(monkeys[1].Inspected == 47830);
+        Debug.Assert(monkeys[2].Inspected == 1938);
+        Debug.Assert(monkeys[3].Inspected == 52013);
+
+        Debug.Assert(Busines(monkeys) == 2713310158);
+    }
+
+    private static void PlayRelaxed(List<Monkey> monkeys, int rounds)
     {
         for (int i = 0; i < rounds; ++i)
         {
@@ -59,7 +64,7 @@ class Puzzle : PuzzleBase
         }
     }
 
-    private void PlayWorried(List<Monkey> monkeys, int rounds)
+    private static void PlayWorried(List<Monkey> monkeys, int rounds)
     {
         long reduce = monkeys.Aggregate(1L, (acc, monkey) => acc * monkey.TestValue);
 

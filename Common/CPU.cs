@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 using Registers = Dictionary<string, long>;
 
-class InstructionFactory
+static class InstructionFactory
 {
     public static Instruction Parse(string input)
     {
         var tokens = input.Split(' ');
-        switch (tokens[0])
+        return tokens[0] switch
         {
-            case "noop": return new Noop();
-            case "addx": return new Addx() { Operand = long.Parse(tokens[1]) };
-            default: throw new NotImplementedException();
-        }
+            "noop" => new Noop(),
+            "addx" => new Addx() { Operand = long.Parse(tokens[1]) },
+            _ => throw new NotImplementedException(),
+        };
     }
 }
 
@@ -53,19 +53,19 @@ class Addx : Instruction
     }
 }
 
-class CPUEventArgs : EventArgs
+class CpuEventArgs : EventArgs
 {
-    public CPU? CPU { get; init; }
+    public Cpu? CPU { get; init; }
 }
 
-class CPU
+class Cpu
 {
-    public event EventHandler<CPUEventArgs>? OnCycleBegin;
+    public event EventHandler<CpuEventArgs>? OnCycleBegin;
 
     public int Cycle { get; private set; } = 1;
     public Registers Registers { get; private init; } = new();
 
-    public CPU()
+    public Cpu()
     {
         Registers["x"] = 1;
     }
@@ -76,7 +76,7 @@ class CPU
         {
             do
             {
-                OnCycleBegin?.Invoke(this, new CPUEventArgs() { CPU = this });
+                OnCycleBegin?.Invoke(this, new CpuEventArgs() { CPU = this });
                 instruction.Cycle(Registers);
                 ++Cycle;
             }

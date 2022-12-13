@@ -10,7 +10,6 @@ class Puzzle : PuzzleBase
 
     public override void Test()
     {
-
         Test1();
         Test2();
     }

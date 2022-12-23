@@ -48,14 +48,14 @@ class Puzzle : PuzzleBase
         var left = JsonDocument.Parse(a).RootElement;
         var right = JsonDocument.Parse(b).RootElement;
 
-        Console.Out.WriteLine($"Comparing {left} and {right}");
+        //Console.Out.WriteLine($"Comparing {left} and {right}");
 
         int result = Compare(left.EnumerateArray(), right.EnumerateArray());
 
         if (result < 0)
-            Console.Out.WriteLine($"Left side is smaller");
+            ;//Console.Out.WriteLine($"Left side is smaller");
         else if (result > 0)
-            Console.Out.WriteLine($"Right side is smaller");
+            ;//Console.Out.WriteLine($"Right side is smaller");
         else
             throw new ApplicationException();
         return result;

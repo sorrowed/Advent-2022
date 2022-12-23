@@ -68,26 +68,16 @@ class Cave : Dictionary<Coordinate, char>
         Coordinate sand = Sand with { };
         do
         {
-            if (sand.X < TopLeft!.X)
+            if (sand.X < TopLeft!.X || sand.X > BottomRight!.X)
             {
-                if (limits)
+                if (!limits)
                 {
-                    break;
+                    TopLeft = TopLeft! with { X = Math.Min(sand.X, TopLeft.X) };
+                    BottomRight = BottomRight! with { X = Math.Max(sand.X, BottomRight.X) };
                 }
                 else
                 {
-                    TopLeft = TopLeft! with { X = TopLeft.X - 1 };
-                }
-            }
-            if (sand.X > BottomRight!.X)
-            {
-                if (limits)
-                {
                     break;
-                }
-                else
-                {
-                    BottomRight = BottomRight! with { X = BottomRight.X + 1 };
                 }
             }
             else if (sand.Y + 1 > BottomRight!.Y)
@@ -197,7 +187,7 @@ class Puzzle : PuzzleBase
         int sands = cave.Count(kvp => kvp.Value == 'o');
 
         _sw.Stop();
-        cave.Print();
+        //cave.Print();
 
         Debug.Assert(sands == 1513);
 
@@ -218,7 +208,7 @@ class Puzzle : PuzzleBase
         while (cave.AddSand(false)) { }
         int sands = cave.Count(kvp => kvp.Value == 'o');
         _sw.Stop();
-        cave.Print();
+        //cave.Print();
 
 
         Debug.Assert(sands == 22646);
